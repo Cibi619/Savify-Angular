@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="./login.component.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <ng-container *ngIf="mode === 'login'">
+                <h2 class="header">Sign In</h2>
+                <form name="form" #myForm="ngForm" (ngSubmit)="loginForm(myForm);">
+                    <input type="email" class="form-control" [(ngModel)]="user.username" name="email" id="email" placeholder="email" required>
+                    <input type="password" class="form-control" [(ngModel)]="user.password" name="password" placeholder="password" required>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                    <button type="submit" class="btns" [disabled]="myForm.invalid">Sign In</button>
+                    <button class="btns" (click)="setMode('register')">Register</button>
+                </form>
+            </ng-container>
+            <ng-container *ngIf="mode === 'register'">
+                <h2 class="header">Register</h2>
+                <form name="form" #myRegisterForm="ngForm" (ngSubmit)="registerForm(myRegisterForm);">
+                    <input type="text" class="form-control" [(ngModel)]="register.name" name="name" id="name" placeholder="name" required>
+                    <input type="email" class="form-control" [(ngModel)]="register.email" name="email" id="email" placeholder="email" required>
+                    <input type="password" class="form-control" [(ngModel)]="register.password" name="password" placeholder="Password" required>
+                    <input type="password" class="form-control" [(ngModel)]="register.confirm" name="confirm-password" placeholder="Confirm Password" required>
+                    <button type="submit" class="btns" [disabled]="myRegisterForm.invalid">Register</button>
+                    <a [routerLink]="['/login']" class="sign-in" (click)="setMode('login')">Already have an account? Sign In</a>
+                </form>
+            </ng-container>
+        </div>
+        <div class="right-panel">
+            <h2 class="welcome-header">Welcome To Savify</h2>
+            <h4 class="tagline">Your go-to expense tracker saver</h4>
+            <p>Savify allows you to manage and track your expenes by categorizing them
+                such as entertainment, food, groceries, travel. It allows you to cut down
+                on unnecessary expenses and instill mindful spending
+            </p>
+        </div>
+    </div>
+</body>
+</html>
