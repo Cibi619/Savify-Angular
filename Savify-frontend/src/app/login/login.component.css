@@ -69,3 +69,10 @@ button.btns {
 input:focus {
   padding: 12px;
 }
+.err-msg {
+    color: red;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 1vh;
+}

@@ -12,8 +12,21 @@
             <ng-container *ngIf="mode === 'login'">
                 <h2 class="header">Sign In</h2>
                 <form name="form" #myForm="ngForm" (ngSubmit)="loginForm(myForm);">
-                    <input type="email" class="form-control" [(ngModel)]="user.username" name="email" id="email" placeholder="email" required>
-                    <input type="password" class="form-control" [(ngModel)]="user.password" name="password" placeholder="password" required>
+                    <input type="email" class="form-control" [(ngModel)]="user.username" name="email" id="email" placeholder="email" #email="ngModel"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required>
+                    @if (email.errors?.['pattern']) {
+                        <span class="err-msg">Invalid email format</span>
+                    }
+                    @else if (email.invalid && (email.touched || email.dirty)) {
+                        <span class="err-msg">Email is required</span>
+                    }
+                    <input type="password" class="form-control" [(ngModel)]="user.password" name="password" placeholder="password" minlength="6" #password="ngModel" required>
+                    @if (password.errors?.['minlength']) {
+                        <span class="err-msg">Password must be atleast 6 characters long</span>
+                    }
+                    @else if (password.invalid && (password.touched || password.dirty)) {
+                        <span class="err-msg">Password is required</span>
+                    }
                     <a href="#" class="forgot-password">Forgot password?</a>
                     <button type="submit" class="btns" [disabled]="myForm.invalid">Sign In</button>
                     <button class="btns" (click)="setMode('register')">Register</button>
@@ -21,12 +34,39 @@
             </ng-container>
             <ng-container *ngIf="mode === 'register'">
                 <h2 class="header">Register</h2>
-                <form name="form" #myRegisterForm="ngForm" (ngSubmit)="registerForm(myRegisterForm);">
-                    <input type="text" class="form-control" [(ngModel)]="register.name" name="name" id="name" placeholder="name" required>
-                    <input type="email" class="form-control" [(ngModel)]="register.email" name="email" id="email" placeholder="email" required>
-                    <input type="password" class="form-control" [(ngModel)]="register.password" name="password" placeholder="Password" required>
-                    <input type="password" class="form-control" [(ngModel)]="register.confirm" name="confirm-password" placeholder="Confirm Password" required>
-                    <button type="submit" class="btns" [disabled]="myRegisterForm.invalid">Register</button>
+                <form [formGroup]="register_form" (ngSubmit)="registerForm();">
+                    <input type="text" class="form-control" formControlName="name" id="name" placeholder="name" minlength="2" required>
+                    @if (register_name.errors?.['minlength']) {
+                        <span class="err-msg">Name should be atleast 2 chars long</span>
+                    }
+                    @else if (register_name.invalid && (register_name.touched || register_name.dirty)) {
+                        <span class="err-msg">Name is required</span>
+                    }
+                    <input type="email" class="form-control" formControlName="email" id="email" placeholder="email" required>
+                    @if (register_email.errors?.['pattern']) {
+                        <span class="err-msg">Invalid email pattern</span>
+                    }
+                    @else if (register_email.invalid && (register_email.touched || register_email.dirty)) {
+                        <span class="err-msg">Email is required</span>
+                    }
+                    <input type="password" class="form-control" formControlName="password" placeholder="Password" required>
+                    @if (register_password.errors?.['minlength']) {
+                        <span class="err-msg">Password should be atleast 6 characters long</span>
+                    }
+                    @else if (register_password.invalid && (register_password.touched || register_password.dirty)) {
+                        <span class="err-msg">Password is required</span>
+                    }
+                    <input type="password" class="form-control" formControlName="confirm_password" placeholder="Confirm Password" required>
+                    @if (register_confirm_password.errors?.['minlength']) {
+                        <span class="err-msg">Confirm Password should be atleast 6 characters long</span>
+                    }
+                    @else if (register_form.controls['confirm_password'].hasError('passwordMatch')) {
+                        <span class="err-msg">Passwords do not match</span>
+                    }
+                    @else if (register_confirm_password.invalid && (register_confirm_password.touched || register_confirm_password.dirty)) {
+                        <span class="err-msg">Passwords do not match</span>
+                    }
+                    <button type="submit" class="btns" [disabled]="register_form.invalid">Register</button>
                     <a [routerLink]="['/login']" class="sign-in" (click)="setMode('login')">Already have an account? Sign In</a>
                 </form>
             </ng-container>
