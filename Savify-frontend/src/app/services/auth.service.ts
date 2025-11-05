@@ -17,6 +17,10 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, data)
   }
 
+  isLoggedIn(): Boolean {
+    return !!localStorage.getItem('authToken')
+  }
+
   saveToken(token: string) {
     localStorage.setItem('authToken', token);
   }
