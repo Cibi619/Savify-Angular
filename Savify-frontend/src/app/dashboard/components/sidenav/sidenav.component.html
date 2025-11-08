@@ -1,1 +1,29 @@
-<p>sidenav works!</p>
+<div class="sidenav-container">
+    <div class="app-name">
+        Savify
+    </div>
+    <div class="sidenav-items">
+        <ul class="menu">
+            <li routerLink="/dashboard/home" routerLinkActive="active">
+            <i class="fa fa-home"></i> Dashboard
+            </li>
+            <li routerLink="/dashboard/report" routerLinkActive="active">
+            <i class="fa fa-file-text"></i> Reports
+            </li>
+            <li routerLink="/dashboard/history" routerLinkActive="active">
+            <i class="fa fa-history"></i> History
+            </li>
+            <!-- <li routerLink="/profile" routerLinkActive="active">
+            <i class="fa fa-user"></i> Profile
+            </li>
+            <li routerLink="/settings" routerLinkActive="active">
+            <i class="fa fa-cog"></i> Settings
+            </li> -->
+        </ul>
+    </div>
+    <div class="logout">
+        <span>{{user}}</span>
+        <i class="fa fa-sign-out" aria-hidden="true" style="cursor: pointer;" (click)="logout()"></i>
+    </div>
+</div>
+

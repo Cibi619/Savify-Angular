@@ -49,6 +49,8 @@ export class LoginComponent {
         next: (res) => {
           console.log('Login successful', res)
           localStorage.setItem('authToken', res.token)
+          localStorage.setItem('user', JSON.stringify(res.user.name));
+          this.authService.setUser(res.user);
           this.router.navigate(['/dashboard'])
         },
         error: (err) => console.error(err)

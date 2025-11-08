@@ -1,13 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private apiUrl = 'http://localhost:3000/api/users';
+  userSubject = new BehaviorSubject<any>(null)
+  user$ = this.userSubject.asObservable();
   constructor(private http: HttpClient) { }
+
+  setUser(val: any) {
+    this.userSubject.next(val)
+  }
+  
+  getUser() {
+    return this.user$;
+  }
 
   signup(data: any): Observable<any> {
     return this.http.post(`${this.apiUrl}/signup`, data)
@@ -26,10 +36,11 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem('authToken');
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem('authToken');
+    localStorage.removeItem('user')
   }
 }
