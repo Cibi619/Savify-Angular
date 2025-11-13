@@ -1,4 +1,28 @@
 <div class="content-section">
-  <app-expense-chart></app-expense-chart>
-  <app-expense-table></app-expense-table>
+  <div class="left-content">
+      <section class="welcome-box">
+        <h1>Hello, {{userName}}</h1>
+        <span class="tagline">Take a look at your current expenses</span>
+      </section>
+      <section class="expense-chart">
+          <app-expense-chart></app-expense-chart>
+      </section>
+      <section class="add-expense">
+        <app-add-expense></app-add-expense>
+      </section>
+  </div>
+  <section class="each-expense-card">
+      <!-- We will have a small card for each expense category-->
+    <span class="tagline">section-wise expenses</span>
+    <div class="expense-cards">
+      <app-expense-card>For travel</app-expense-card>
+      <app-expense-card>For Groceries & Food</app-expense-card>
+      <app-expense-card>For entertainment</app-expense-card>
+      <app-expense-card>For miscellaneous</app-expense-card>
+    </div>
+  </section>
+  <section class="expense-table">
+    <span class="tagline">Recent expenses</span>
+    <app-expense-table></app-expense-table>
+  </section>
 </div>

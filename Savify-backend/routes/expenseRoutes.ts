@@ -1,13 +1,14 @@
 import express from 'express'
 import { get } from "mongoose";
-import { getAllExpenses, getExpensesByMonth, addExpense, updateExpense, deleteExpense } from "../controllers/expenseController.js"
+import { getUserExpenses, getExpensesByMonth, addExpense, updateExpense, deleteExpense } from "../controllers/expenseController.js";
+import {verifyToken} from "../middleware/authMiddleware.js"
 
 const router = express.Router();
 
-router.get('/:user_id', getAllExpenses)
-router.get('/:user_id/month', getExpensesByMonth)
-router.post('/', addExpense)
-router.put('/:id', updateExpense)
-router.delete('/:id', deleteExpense)
+router.get('/', verifyToken, getUserExpenses)
+router.get('/:user_id/month', verifyToken, getExpensesByMonth)
+router.post('/', verifyToken, addExpense)
+router.put('/:id', verifyToken, updateExpense)
+router.delete('/:id', verifyToken, deleteExpense)
 
 export default router;
