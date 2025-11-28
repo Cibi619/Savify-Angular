@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpenseService } from '../../../services/expense.service';
-import { JsonPipe } from '@angular/common';
+import { DatePipe, JsonPipe, NgForOf } from '@angular/common';
 
 @Component({
   selector: 'app-expense-table',
-  imports: [JsonPipe],
+  imports: [JsonPipe, NgForOf, DatePipe],
   templateUrl: './expense-table.component.html',
   styleUrl: './expense-table.component.css'
 })
@@ -13,9 +13,9 @@ export class ExpenseTableComponent implements OnInit {
     constructor(private expenseService: ExpenseService) {}
 
     ngOnInit() {
-      this.expenseService.getUserExpenses().subscribe({
-        next: (data) => this.expenses = data,
-        error: (err) => console.error(err)
+      this.expenseService.expenses$.subscribe(data => {
+        this.expenses = data;
       })
+      this.expenseService.loadExpenses();
     }
 }

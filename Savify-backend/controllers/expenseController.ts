@@ -53,7 +53,7 @@ export const addExpense = async (req: AuthRequest, res: Response) => {
         const savedExpense = await expense.save();
         res.status(201).json({ message: "Expense added successfully", savedExpense });
     } catch(err: any) {
-        res.status(400).json({error: 'Error adding expense'})
+        res.status(400).json({error: err})
     }
 }
 

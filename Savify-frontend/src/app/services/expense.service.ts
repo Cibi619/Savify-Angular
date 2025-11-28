@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 
 
 @Injectable({
@@ -8,6 +8,8 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class ExpenseService {
   private apiUrl: string = 'http://localhost:3000/api/expenses'
+  private expenseSubject = new BehaviorSubject<any[]>([])
+  expenses$ = this.expenseSubject.asObservable();
 
   constructor(private http: HttpClient) { }
   // get expenses of user for that month
@@ -18,6 +20,18 @@ export class ExpenseService {
       'Content-Type': 'application/json'
     });
   }
+
+  loadExpenses() {
+  this.getUserExpenses().subscribe({
+    next: (data) => {
+      this.expenseSubject.next(data || []);
+    },
+    error: (err) => {
+      console.error("Failed to load expenses", err);
+      this.expenseSubject.next([]);
+    }
+  });
+}
 
   // Get all expenses for the current user
   getUserExpenses(): Observable<any> {
@@ -37,7 +51,12 @@ export class ExpenseService {
   addExpense(expenseData: any): Observable<any> {
     return this.http
       .post(this.apiUrl, expenseData, { headers: this.getAuthHeaders() })
-      .pipe(catchError(this.handleError));
+      .pipe(tap((savedExpense) => {
+        // Get current list
+        const currentExpenses = this.expenseSubject.value;
+        // Add the new expense to the list
+        this.expenseSubject.next([...currentExpenses, savedExpense]);
+      }),catchError(this.handleError));
   }
 
   // Update existing expense

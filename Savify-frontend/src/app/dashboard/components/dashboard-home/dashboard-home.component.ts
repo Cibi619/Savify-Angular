@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../services/auth.service';
 import { AddExpenseComponent } from "../add-expense/add-expense.component";
 import { ExpenseCardComponent } from "../expense-card/expense-card.component";
+import { ExpenseService } from '../../../services/expense.service';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -14,7 +15,8 @@ import { ExpenseCardComponent } from "../expense-card/expense-card.component";
 })
 export class DashboardHomeComponent implements OnInit {
     userName: string = ''
-    constructor(private authService: AuthService) {
+    recentExpenses: any;
+    constructor(private authService: AuthService, private expenseService: ExpenseService) {
 
     }
 
@@ -22,5 +24,11 @@ export class DashboardHomeComponent implements OnInit {
       this.authService.getUser().subscribe((user: any) => {
         this.userName = user.trim().split(" ")[0]
       })
+
+      this.expenseService.expenses$.subscribe(data => {
+        this.recentExpenses = data;
+      });
+
+      this.expenseService.loadExpenses();
     }
 }

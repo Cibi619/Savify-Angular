@@ -1,0 +1,43 @@
+.content-section {
+    padding: 2vh;
+    height: calc(100vh - 10vh);
+    display: flex;
+    gap: 20px;
+}
+
+.left-content {
+    flex: 2;
+}
+
+.right-content {
+    flex: 5;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.left-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+section.welcome-box {
+    flex: 1;
+}
+
+section.expense-chart {
+    flex: 3;
+}
+
+section.add-expense {
+    flex: 3;
+}
+
+section.each-expense-card {
+    flex: 2;
+}
+
+section.expense-table {
+    flex: 3;
+}

@@ -1,0 +1,23 @@
+.add-expense-card {
+    width: 250px;
+    max-width: 300px;
+    border-radius: 20px;
+    background-color: #20a8d8;
+    min-height: 10vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button.add-btn {
+    background-color: #7cc5df;
+    border: none;
+    border-radius: 20px;
+    padding: 2vh;
+    cursor: pointer;
+    font-weight: 600;
+}   
+
+button.add-btn:hover {
+    padding: 2.2vh;
+}

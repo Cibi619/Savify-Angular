@@ -1,1 +1,21 @@
-{{expenses | json}}
+<table class="expense-table">
+    <thead>
+        <tr>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>Amount</th>
+            <th>Note</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let item of expenses">
+            <td>{{ item.category }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.date | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ item.price }}</td>
+            <td>{{ item.note }}</td>
+        </tr>
+    </tbody>
+</table>
