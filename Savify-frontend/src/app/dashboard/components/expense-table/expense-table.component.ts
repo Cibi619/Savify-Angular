@@ -5,6 +5,7 @@ import { DatePipe, JsonPipe, NgForOf } from '@angular/common';
 @Component({
   selector: 'app-expense-table',
   imports: [JsonPipe, NgForOf, DatePipe],
+  standalone: true,
   templateUrl: './expense-table.component.html',
   styleUrl: './expense-table.component.css'
 })

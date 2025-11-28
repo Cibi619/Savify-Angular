@@ -13,7 +13,6 @@ import { ToastService } from '../../../shared/toast.service';
 })
 export class AddExpenseModalComponent {
   @Output() closeModal = new EventEmitter<void>();
-  @Output() expenseAdded = new EventEmitter<void>();
   categories = ['Groceries', 'Travel', 'Entertainment', 'Miscellaneous'];
   expense = {
     name: '',
@@ -37,7 +36,14 @@ export class AddExpenseModalComponent {
   submit() {
   this.expenseService.addExpense(this.expense).subscribe(() => {
       this.toast.triggerToast('Expense Added Successfully 🎉');
-      this.expenseAdded.emit();
+      this.expense = {
+        name: '',
+        price: 0,
+        date: '',
+        month: '',
+        category: '',
+        note: ''
+      };
       this.closeModal.emit();
     });
   }
