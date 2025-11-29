@@ -51,8 +51,8 @@ export class ExpenseService {
   addExpense(expenseData: any): Observable<any> {
     return this.http
       .post(this.apiUrl, expenseData, { headers: this.getAuthHeaders() })
-      .pipe(tap((res: any) => {
-        const savedExpense = res.savedExpense;
+      .pipe(tap((resp: any) => {
+        const savedExpense = resp.savedExpense;
         console.log("Saved expense from backend:", savedExpense);
         // Get current list
         const currentExpenses = this.expenseSubject.value;

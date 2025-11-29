@@ -5,6 +5,7 @@ import cors from "cors"
 import morgan from "morgan"
 import userRoutes from "./routes/userRoutes.js"
 import expenseRoutes from './routes/expenseRoutes.js'
+import monthlyLimitRoutes from './routes/monthlyLimitRoutes.js'
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use('/api/users', userRoutes);
 app.use("/api/expenses", expenseRoutes);
+app.use("/api/monthly-limits", monthlyLimitRoutes)
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI || '').then(() => {
   console.log('Connected to MongoDB');
