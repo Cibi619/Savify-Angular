@@ -39,6 +39,14 @@ export class AuthService {
     return localStorage.getItem('authToken');
   }
 
+  getDecodedUser() {
+    const token = this.getToken();
+    if (!token) return null;
+
+    const payload = JSON.parse(atob(token.split('.')[1])); 
+    return payload;
+}
+
   logout() {
     localStorage.removeItem('authToken');
     localStorage.removeItem('user')

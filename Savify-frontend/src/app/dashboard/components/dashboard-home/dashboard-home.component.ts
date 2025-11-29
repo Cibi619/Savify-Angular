@@ -6,6 +6,7 @@ import { AuthService } from '../../../services/auth.service';
 import { AddExpenseComponent } from "../add-expense/add-expense.component";
 import { ExpenseCardComponent } from "../expense-card/expense-card.component";
 import { ExpenseService } from '../../../services/expense.service';
+import { MonthlyLimitService } from '../../../services/monthly-limit.service';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -16,19 +17,31 @@ import { ExpenseService } from '../../../services/expense.service';
 export class DashboardHomeComponent implements OnInit {
     userName: string = ''
     recentExpenses: any;
-    constructor(private authService: AuthService, private expenseService: ExpenseService) {
+    userId: any;
+    constructor(private authService: AuthService, private expenseService: ExpenseService, private monthlyLimitService: MonthlyLimitService) {
 
     }
 
     ngOnInit() {
-      this.authService.getUser().subscribe((user: any) => {
-        this.userName = user.trim().split(" ")[0]
-      })
+      // this.authService.getUser().subscribe((user: any) => {
+      //   this.userName = user.trim().split(" ")[0]
+      //   this.userId = user._id;
+      // })
+      const user = this.authService.getDecodedUser();
+      const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+      const d = new Date()
+      const currentMonth = month[d.getMonth()];
+      const currentYear = d.getFullYear()
 
       this.expenseService.expenses$.subscribe(data => {
         this.recentExpenses = data;
       });
 
       this.expenseService.loadExpenses();
+      if (user) {
+        this.userId = user.id;
+        this.userName = user.email.split('@')[0];
+        this.monthlyLimitService.loadMonthlyLimits(this.userId, currentMonth, currentYear)
+      }
     }
 }
