@@ -6,6 +6,7 @@ import morgan from "morgan"
 import userRoutes from "./routes/userRoutes.js"
 import expenseRoutes from './routes/expenseRoutes.js'
 import monthlyLimitRoutes from './routes/monthlyLimitRoutes.js'
+import expenseSummaryRoutes from './routes/expenseSummaryRoutes.js'
 
 dotenv.config();
 
@@ -15,11 +16,15 @@ const PORT = process.env.PORT || 3000;
 // Middleware
 app.use(cors());
 app.use(morgan('dev'));
-app.use(express.json());
+app.use((req, res, next) => {
+  if (req.method === 'GET') return next();
+  express.json()(req, res, next);
+});
 
 app.use('/api/users', userRoutes);
 app.use("/api/expenses", expenseRoutes);
 app.use("/api/monthly-limits", monthlyLimitRoutes)
+app.use("/api/monthly-categories", expenseSummaryRoutes)
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI || '').then(() => {
   console.log('Connected to MongoDB');

@@ -17,14 +17,25 @@ export const getUserExpenses = async (req: AuthRequest, res: Response) => {
 // get expenses for the user for specific month
 export const getExpensesByMonth = async (req: AuthRequest, res: Response) => {
   try {
-    const { month } = req.params;
+    const { month, year } = req.query;
+    if (!month || !year) {
+      return res.status(400).json({ message: "Month and year are required" });
+    }
+    const yr = Number(year);
+    const startDate = new Date(`${month} 1, ${yr}`);
+    const endDate = new Date(yr, startDate.getMonth() + 1, 0, 23, 59, 59);
     const expenses = await Expense.find({
       user: req.user?.id,
-      month
+      month: month,
+      date: {
+        $gte: startDate,
+        $lte: endDate
+      }
     }).sort({ date: -1 });
 
     res.status(200).json(expenses);
   } catch (err) {
+    console.error("Error in getExpensesByMonth:", err);
     res.status(500).json({ message: "Error fetching monthly expenses" });
   }
 };
