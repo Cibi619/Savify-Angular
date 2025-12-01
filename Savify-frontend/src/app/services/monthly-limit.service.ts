@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +21,8 @@ export class MonthlyLimitService {
   }
   
 
-  loadMonthlyLimits(userId: string, month: string, year: Number) {
-    this.http.get<any[]>(`${this.baseUrl}?user=${userId}&month=${month}&year=${year}`, { headers: this.getAuthHeaders() })
-      .subscribe(data => {
-        this.monthlyLimits$.next(data);
-        console.log(data)
-      })
+  loadMonthlyLimits(userId: string, month: string, year: Number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}?user=${userId}&month=${month}&year=${year}`, { headers: this.getAuthHeaders() })
   }
 
   updateLimit(limitData: any) {

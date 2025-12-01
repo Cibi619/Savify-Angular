@@ -24,6 +24,7 @@ export class ExpenseService {
   loadExpenses() {
   this.getUserExpenses().subscribe({
     next: (data) => {
+      console.log(data, "--> data");
       this.expenseSubject.next(data || []);
     },
     error: (err) => {

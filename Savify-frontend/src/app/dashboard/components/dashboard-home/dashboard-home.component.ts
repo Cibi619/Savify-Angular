@@ -18,7 +18,12 @@ export class DashboardHomeComponent implements OnInit {
     userName: string = ''
     recentExpenses: any;
     userId: any;
-    expenseCards: any;
+    expenseCards: any[] = [
+      { category: 'Groceries', limit: 0, spent: 0 },
+      { category: 'Travel', limit: 0, spent: 0 },
+      { category: 'Entertainment', limit: 0, spent: 0 },
+      { category: 'Miscellaneous', limit: 0, spent: 0 },
+    ];
     constructor(private authService: AuthService, private expenseService: ExpenseService, private monthlyLimitService: MonthlyLimitService) {
 
     }
@@ -38,7 +43,16 @@ export class DashboardHomeComponent implements OnInit {
       if (user) {
         this.userId = user.id;
         this.userName = user.email.split('@')[0];
-        this.monthlyLimitService.loadMonthlyLimits(this.userId, currentMonth, currentYear)
+        this.monthlyLimitService.loadMonthlyLimits(this.userId, currentMonth, currentYear).subscribe(limits => {
+          console.log('recieved monthly limits', limits)
+          this.expenseCards = this.expenseCards.map(card => {
+          const limitObj = limits.find(l => l.category === card.category);
+          return {
+            ...card,
+            limit: limitObj ? limitObj.limit : 0
+          };
+        });
+        })
       }
     }
 }
