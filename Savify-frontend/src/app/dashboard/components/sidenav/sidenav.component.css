@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100vh;
+    height: 100%;
 }
 
 .logout {
@@ -35,4 +35,9 @@
 .menu li.active {
   opacity: 1;
   font-weight: 600;
+}
+
+:host {
+    display: block;
+    height: 100%;
 }

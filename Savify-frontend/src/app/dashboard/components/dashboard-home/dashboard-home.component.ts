@@ -18,15 +18,12 @@ export class DashboardHomeComponent implements OnInit {
     userName: string = ''
     recentExpenses: any;
     userId: any;
+    expenseCards: any;
     constructor(private authService: AuthService, private expenseService: ExpenseService, private monthlyLimitService: MonthlyLimitService) {
 
     }
 
     ngOnInit() {
-      // this.authService.getUser().subscribe((user: any) => {
-      //   this.userName = user.trim().split(" ")[0]
-      //   this.userId = user._id;
-      // })
       const user = this.authService.getDecodedUser();
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
       const d = new Date()

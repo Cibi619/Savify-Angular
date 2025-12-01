@@ -1,1 +1,41 @@
-<p>expense-card works!</p>
+<div class="expense-card">
+  <div class="expense-card__header">
+    <span class="expense-card__title">{{ category }}</span>
+  </div>
+
+  <div class="expense-card__body">
+    <div class="expense-card__chart">
+      <div class="expense-card__circle">
+        <div class="expense-card__circle-inner">
+          <span class="expense-card__total-label">Total</span>
+          <span class="expense-card__total-value">
+            {{ limit | currency:'USD':'symbol' }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="expense-card__info">
+      <div class="expense-card__legend">
+        <div class="legend-item">
+          <span class="legend-color legend-color--spent"></span>
+          <span class="legend-label">Spent</span>
+          <span class="legend-value">
+            {{ spent | currency:'USD':'symbol' }}
+          </span>
+        </div>
+        <div class="legend-item">
+          <span class="legend-color legend-color--remaining"></span>
+          <span class="legend-label">Remaining</span>
+          <span class="legend-value">
+            {{ remaining | currency:'USD':'symbol' }}
+          </span>
+        </div>
+      </div>
+
+      <button type="button" class="expense-card__button">
+        Edit monthly limit
+      </button>
+    </div>
+  </div>
+</div>

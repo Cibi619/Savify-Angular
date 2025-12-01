@@ -17,10 +17,18 @@
       <!-- We will have a small card for each expense category-->
       <p class="tagline">section-wise expenses</p>
       <div class="expense-cards">
-        <app-expense-card>For travel</app-expense-card>
-        <app-expense-card>For Groceries & Food</app-expense-card>
-        <app-expense-card>For entertainment</app-expense-card>
-        <app-expense-card>For miscellaneous</app-expense-card>
+        <app-expense-card category="Groceries"
+          [limit]="200" [spent]="135">
+        </app-expense-card>
+        <app-expense-card category="Travel"
+          [limit]="200" [spent]="135">For Groceries & Food
+        </app-expense-card>
+        <app-expense-card category="Entertainment"
+          [limit]="200" [spent]="135">For entertainment
+        </app-expense-card>
+        <app-expense-card category="Miscellaneous"
+          [limit]="200" [spent]="135">For miscellaneous
+        </app-expense-card>
       </div>
     </section>
     <section class="expense-table">

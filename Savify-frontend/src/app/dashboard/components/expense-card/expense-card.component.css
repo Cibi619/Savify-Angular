@@ -1,0 +1,158 @@
+/* ---- CARD SHELL ---- */
+
+.expense-card {
+  background-color: #ffffff;
+  border-radius: 18px;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.06);
+  padding: 16px 18px 18px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+/* Top grey header bar */
+.expense-card__header {
+  background-color: #e9ecef;
+  border-radius: 12px;
+  padding: 8px 12px;
+  text-align: center;
+}
+
+.expense-card__title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* ---- BODY LAYOUT ---- */
+
+.expense-card__body {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ---- CIRCLE / CHART ---- */
+
+.expense-card__chart {
+  flex: 0 0 40%;
+  display: flex;
+  justify-content: center;
+}
+
+/* Simple “donut” look. Later you can bind the gradient to spentPercent */
+.expense-card__circle {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: conic-gradient(
+    #20a8d8 0deg 220deg,   /* “spent” color part */
+    #f2f2f2 220deg 360deg  /* remaining arc */
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* White inner circle for the text */
+.expense-card__circle-inner {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+}
+
+.expense-card__total-label {
+  font-size: 0.7rem;
+  color: #6c757d;
+}
+
+.expense-card__total-value {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ---- RIGHT SIDE: LEGEND + BUTTON ---- */
+
+.expense-card__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.expense-card__legend {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.legend-item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  column-gap: 6px;
+  font-size: 0.8rem;
+}
+
+.legend-color {
+  width: 14px;
+  height: 8px;
+  border-radius: 999px;
+}
+
+.legend-color--spent {
+  background-color: #20a8d8; /* blue */
+}
+
+.legend-color--remaining {
+  background-color: #000000; /* black */
+}
+
+.legend-label {
+  color: #495057;
+}
+
+.legend-value {
+  font-weight: 600;
+}
+
+/* Button */
+.expense-card__button {
+  margin-top: 4px;
+  align-self: flex-start;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: none;
+  background-color: #f1f3f5;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.expense-card__button:hover {
+  background-color: #e2e6ea;
+  transform: translateY(-1px);
+}
+
+/* ---- RESPONSIVE BEHAVIOUR INSIDE CARD ---- */
+
+/* On very narrow widths, stack chart above text */
+@media (max-width: 480px) {
+  .expense-card__body {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .expense-card__chart {
+    justify-content: flex-start;
+  }
+}

@@ -10,7 +10,7 @@
 }
 
 .right-content {
-    flex: 5;
+    flex: 4;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -40,4 +40,30 @@ section.each-expense-card {
 
 section.expense-table {
     flex: 3;
+}
+
+.expense-cards {
+    display: flex;
+    justify-content: space-around;
+}
+
+.expense-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: flex-start;
+}
+
+/* On large screens they’ll line up; on smaller screens they stack */
+@media (max-width: 1024px) {
+  .expense-cards {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .expense-cards {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }
