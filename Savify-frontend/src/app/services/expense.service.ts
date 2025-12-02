@@ -8,6 +8,7 @@ import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 })
 export class ExpenseService {
   private apiUrl: string = 'http://localhost:3000/api/expenses'
+  private monthlyCategoryUrl: string = 'http://localhost:3000/api'
   private expenseSubject = new BehaviorSubject<any[]>([])
   expenses$ = this.expenseSubject.asObservable();
 
@@ -80,5 +81,11 @@ export class ExpenseService {
   private handleError(error: any) {
     console.error('ExpenseService Error:', error);
     return throwError(() => new Error(error.error?.message || 'Server error'));
+  }
+
+  getMonthlySummary(month: string, year: number) {
+    return this.http.get<any[]>(
+      `${this.monthlyCategoryUrl}/monthly-categories/summary?month=${month}&year=${year}`,{ headers: this.getAuthHeaders() }
+    ).pipe(catchError(this.handleError));
   }
 }

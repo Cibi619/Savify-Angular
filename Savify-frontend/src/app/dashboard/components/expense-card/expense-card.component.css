@@ -46,10 +46,6 @@
   width: 92px;
   height: 92px;
   border-radius: 50%;
-  background: conic-gradient(
-    #20a8d8 0deg 220deg,   /* “spent” color part */
-    #f2f2f2 220deg 360deg  /* remaining arc */
-  );
   display: flex;
   justify-content: center;
   align-items: center;
@@ -113,7 +109,7 @@
 }
 
 .legend-color--remaining {
-  background-color: #000000; /* black */
+  background-color: #f2f2f2; /* grey */
 }
 
 .legend-label {

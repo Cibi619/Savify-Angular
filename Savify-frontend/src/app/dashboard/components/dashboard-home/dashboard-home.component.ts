@@ -17,7 +17,9 @@ import { MonthlyLimitService } from '../../../services/monthly-limit.service';
 export class DashboardHomeComponent implements OnInit {
     userName: string = ''
     recentExpenses: any;
-    userId: any;
+    userId = localStorage.getItem('userId')!;
+    month = new Date().toLocaleString('en-US', { month: 'long' });
+    year = new Date().getFullYear();
     expenseCards: any[] = [
       { category: 'Groceries', limit: 0, spent: 0 },
       { category: 'Travel', limit: 0, spent: 0 },
@@ -39,20 +41,38 @@ export class DashboardHomeComponent implements OnInit {
         this.recentExpenses = data;
       });
 
-      this.expenseService.loadExpenses();
-      if (user) {
-        this.userId = user.id;
-        this.userName = user.email.split('@')[0];
-        this.monthlyLimitService.loadMonthlyLimits(this.userId, currentMonth, currentYear).subscribe(limits => {
-          console.log('recieved monthly limits', limits)
-          this.expenseCards = this.expenseCards.map(card => {
-          const limitObj = limits.find(l => l.category === card.category);
-          return {
-            ...card,
-            limit: limitObj ? limitObj.limit : 0
-          };
-        });
-        })
-      }
+      // this.expenseService.loadExpenses();
+      // if (user) {
+      //   this.userId = user.id;
+      //   this.userName = user.email.split('@')[0];
+      //   this.monthlyLimitService.loadMonthlyLimits(this.userId, currentMonth, currentYear).subscribe(limits => {
+      //     console.log('recieved monthly limits', limits)
+      //     this.expenseCards = this.expenseCards.map(card => {
+      //     const limitObj = limits.find(l => l.category === card.category);
+      //     return {
+      //       ...card,
+      //       limit: limitObj ? limitObj.limit : 0
+      //     };
+      //   });
+      //   })
+      // }
+      this.loadExpenseCards();
     }
+
+    loadExpenseCards() {
+    const month = this.month;
+    const year = this.year;
+
+    this.expenseService
+      .getMonthlySummary(month, year)
+      .subscribe((summary: any[]) => {
+        console.log("SUMMARY:", summary);
+
+        this.expenseCards = summary.map(item => ({
+          category: item.category,
+          limit: item.limit,
+          spent: item.spent
+        }));
+      });
+  }
 }
