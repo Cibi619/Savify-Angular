@@ -31,7 +31,6 @@ export class DashboardHomeComponent implements OnInit {
     }
 
     ngOnInit() {
-      const user = this.authService.getDecodedUser();
       const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
       const d = new Date()
       const currentMonth = month[d.getMonth()];
@@ -60,8 +59,10 @@ export class DashboardHomeComponent implements OnInit {
     }
 
     loadExpenseCards() {
+    const user = this.authService.getDecodedUser();
     const month = this.month;
     const year = this.year;
+    this.userName = user.email.split('@')[0];
 
     this.expenseService
       .getMonthlySummary(month, year)

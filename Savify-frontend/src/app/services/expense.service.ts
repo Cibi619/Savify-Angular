@@ -38,21 +38,21 @@ export class ExpenseService {
   // Get all expenses for the current user
   getUserExpenses(): Observable<any> {
     return this.http
-      .get(this.apiUrl, { headers: this.getAuthHeaders() })
+      .get(this.apiUrl)
       .pipe(catchError(this.handleError));
   }
 
   // Get expenses by month
   getExpenseByMonth(month: string): Observable<any> {
     return this.http
-      .get(`${this.apiUrl}/month/${month}`, { headers: this.getAuthHeaders() })
+      .get(`${this.apiUrl}/month/${month}`)
       .pipe(catchError(this.handleError));
   }
 
   // Add a new expense
   addExpense(expenseData: any): Observable<any> {
     return this.http
-      .post(this.apiUrl, expenseData, { headers: this.getAuthHeaders() })
+      .post(this.apiUrl, expenseData)
       .pipe(tap((resp: any) => {
         const savedExpense = resp.savedExpense;
         console.log("Saved expense from backend:", savedExpense);
@@ -66,14 +66,14 @@ export class ExpenseService {
   // Update existing expense
   updateExpense(id: string, updatedData: any): Observable<any> {
     return this.http
-      .put(`${this.apiUrl}/${id}`, updatedData, { headers: this.getAuthHeaders() })
+      .put(`${this.apiUrl}/${id}`, updatedData)
       .pipe(catchError(this.handleError));
   }
 
   // Delete expense
   deleteExpense(id: string): Observable<any> {
     return this.http
-      .delete(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() })
+      .delete(`${this.apiUrl}/${id}`)
       .pipe(catchError(this.handleError));
   }
 
@@ -85,7 +85,7 @@ export class ExpenseService {
 
   getMonthlySummary(month: string, year: number) {
     return this.http.get<any[]>(
-      `${this.monthlyCategoryUrl}/monthly-categories/summary?month=${month}&year=${year}`,{ headers: this.getAuthHeaders() }
+      `${this.monthlyCategoryUrl}/monthly-categories/summary?month=${month}&year=${year}`
     ).pipe(catchError(this.handleError));
   }
 }

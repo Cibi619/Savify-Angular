@@ -1,21 +1,33 @@
-import { Injectable } from '@angular/core';
-import {
-  HttpEvent, HttpHandler, HttpInterceptor, HttpRequest
-} from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { catchError, throwError } from 'rxjs';
 
-@Injectable()
-export class AuthInterceptor implements HttpInterceptor {
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = localStorage.getItem('authToken');
+export const authInterceptor: HttpInterceptorFn = (req, next) => {
+  const router = inject(Router);
+  const token = localStorage.getItem('authToken');
 
-    if (token) {
-      const cloned = req.clone({
-        headers: req.headers.set('Authorization', `Bearer ${token}`)
-      });
-      return next.handle(cloned);
-    } else {
-      return next.handle(req);
-    }
+  let newReq = req;
+
+  if (token) {
+    newReq = req.clone({
+      setHeaders: {
+        Authorization: `Bearer ${token}`
+      }
+    });
   }
-}
+
+  return next(newReq).pipe(
+    catchError((error) => {
+      if (error.status === 401 || error.status === 403) {
+        console.warn("Token expired or invalid — logging out.");
+
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('userId');
+
+        router.navigate(['/login']);
+      }
+      return throwError(() => error);
+    })
+  );
+};
