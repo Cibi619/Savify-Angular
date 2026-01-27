@@ -1,0 +1,39 @@
+.expense-table {
+    width: 100%;
+    /* border: 1px solid; */
+    border-collapse: collapse;
+    /* margin-top: 1rem; */
+    display: block;
+    /* overflow: scroll; */
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 1vh;
+}
+
+.expense-table thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  background-color: #f8f9fa;
+  /* position: sticky; */
+  top: 0;
+  z-index: 1;
+  margin-bottom: .5vh;
+}
+
+.expense-table tbody {
+  display: block;
+  /* max-height: 300px; */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.expense-table tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  text-align: center;
+  margin-top: .5vh;
+
+}
