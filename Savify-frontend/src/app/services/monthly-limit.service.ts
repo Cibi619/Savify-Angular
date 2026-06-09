@@ -26,6 +26,6 @@ export class MonthlyLimitService {
   }
 
   updateLimit(limitData: any) {
-    return this.http.post(this.baseUrl, limitData);
+    return this.http.post(this.baseUrl, limitData, { headers: this.getAuthHeaders() });
   }
 }

@@ -1,14 +1,11 @@
 import express from 'express'
 import mongoose from "mongoose"
-import * as dotenv from "dotenv"
 import cors from "cors"
 import morgan from "morgan"
 import userRoutes from "./routes/userRoutes.js"
 import expenseRoutes from './routes/expenseRoutes.js'
 import monthlyLimitRoutes from './routes/monthlyLimitRoutes.js'
 import expenseSummaryRoutes from './routes/expenseSummaryRoutes.js'
-
-dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
