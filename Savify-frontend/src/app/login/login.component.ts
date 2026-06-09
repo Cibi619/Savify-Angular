@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+
 import { Component, inject } from '@angular/core';
 import { FormGroup, FormsModule, FormBuilder, Validators, ReactiveFormsModule, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
@@ -6,7 +6,7 @@ import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
-  imports: [FormsModule, NgIf, RouterLink, ReactiveFormsModule],
+  imports: [FormsModule, RouterLink, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })

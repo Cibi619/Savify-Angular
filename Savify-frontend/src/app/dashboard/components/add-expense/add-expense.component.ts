@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { AddExpenseModalComponent } from "../add-expense-modal/add-expense-modal.component";
-import { NgIf } from '@angular/common';
+
 
 @Component({
   selector: 'app-add-expense',
-  imports: [AddExpenseModalComponent, NgIf],
+  imports: [AddExpenseModalComponent],
   templateUrl: './add-expense.component.html',
   styleUrl: './add-expense.component.css'
 })
