@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ExpenseService } from '../../../services/expense.service';
 import { FormsModule } from '@angular/forms';
@@ -7,7 +7,7 @@ import { ToastService } from '../../../shared/toast.service';
 
 @Component({
   selector: 'app-add-expense-modal',
-  imports: [NgIf, FormsModule, NgFor],
+  imports: [FormsModule],
   templateUrl: './add-expense-modal.component.html',
   styleUrl: './add-expense-modal.component.css'
 })

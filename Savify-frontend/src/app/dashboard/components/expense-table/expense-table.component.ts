@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpenseService } from '../../../services/expense.service';
-import { DatePipe, JsonPipe, NgForOf } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-expense-table',
-  imports: [JsonPipe, NgForOf, DatePipe],
+  imports: [DatePipe],
   standalone: true,
   templateUrl: './expense-table.component.html',
   styleUrl: './expense-table.component.css'

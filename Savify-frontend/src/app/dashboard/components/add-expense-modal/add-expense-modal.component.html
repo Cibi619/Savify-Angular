@@ -1,39 +1,41 @@
 <div class="modal-overlay" (click)="close()"></div>
 
 <div class="modal-box">
-    <span class="close-btn" (click)="close()">&times;</span>
-    <h3>Add Expense</h3>
-    <form (ngSubmit)="submit()">
-  
-        <input type="text"
-                placeholder="Expense Name"
-                name="name"
-                [(ngModel)]="expense.name"
-                required />
+  <span class="close-btn" (click)="close()">&times;</span>
+  <h3>Add Expense</h3>
+  <form (ngSubmit)="submit()">
 
-        <input type="number"
-                placeholder="Amount"
-                name="price"
-                [(ngModel)]="expense.price"
-                required />
+    <input type="text"
+      placeholder="Expense Name"
+      name="name"
+      [(ngModel)]="expense.name"
+      required />
+
+      <input type="number"
+        placeholder="Amount"
+        name="price"
+        [(ngModel)]="expense.price"
+        required />
 
         <input type="date"
-                name="date"
-                [(ngModel)]="expense.date"
-                required 
-                (change)="autoSetMonth()"/>
+          name="date"
+          [(ngModel)]="expense.date"
+          required
+          (change)="autoSetMonth()"/>
 
-        <select name="category"
-                [(ngModel)]="expense.category"
-                required>
+          <select name="category"
+            [(ngModel)]="expense.category"
+            required>
             <option disabled selected>Select Category</option>
-            <option *ngFor="let c of categories">{{ c }}</option>
-        </select>
+            @for (c of categories; track c) {
+              <option>{{ c }}</option>
+            }
+          </select>
 
-        <textarea placeholder="Note"
-                    name="note"
-                    [(ngModel)]="expense.note"></textarea>
+          <textarea placeholder="Note"
+            name="note"
+          [(ngModel)]="expense.note"></textarea>
 
-        <button type="submit">Save Expense</button>
-    </form>
-</div>
+          <button type="submit">Save Expense</button>
+        </form>
+      </div>

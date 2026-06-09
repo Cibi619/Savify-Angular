@@ -1,11 +1,11 @@
-import { AsyncPipe, NgIf } from '@angular/common';
+import { AsyncPipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { ToastService } from '../toast.service';
 import { async } from 'rxjs';
 
 @Component({
   selector: 'app-toast',
-  imports: [NgIf, AsyncPipe],
+  imports: [AsyncPipe],
   templateUrl: './toast.component.html',
   styleUrl: './toast.component.css'
 })

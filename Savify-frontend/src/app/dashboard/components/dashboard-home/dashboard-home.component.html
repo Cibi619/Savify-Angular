@@ -1,15 +1,15 @@
 <div class="content-section">
   <div class="left-content">
-      <section class="welcome-box">
-        <h1>Hello, {{userName}}</h1>
-        <p class="tagline">Take a look at your current expenses</p>
-      </section>
-      <section class="expense-chart">
-          <app-expense-chart></app-expense-chart>
-      </section>
-      <section class="add-expense">
-        <app-add-expense></app-add-expense>
-      </section>
+    <section class="welcome-box">
+      <h1>Hello, {{userName}}</h1>
+      <p class="tagline">Take a look at your current expenses</p>
+    </section>
+    <section class="expense-chart">
+      <app-expense-chart></app-expense-chart>
+    </section>
+    <section class="add-expense">
+      <app-add-expense></app-add-expense>
+    </section>
   </div>
 
   <div class="right-content">
@@ -17,12 +17,13 @@
       <!-- We will have a small card for each expense category-->
       <p class="tagline">section-wise expenses</p>
       <div class="expense-cards">
-        <app-expense-card
-          *ngFor="let card of expenseCards"
-          [category]="card.category"
-          [limit]="card.limit"
-          [spent]="card.spent">
-        </app-expense-card>
+        @for (card of expenseCards; track card) {
+          <app-expense-card
+            [category]="card.category"
+            [limit]="card.limit"
+            [spent]="card.spent">
+          </app-expense-card>
+        }
       </div>
     </section>
     <section class="expense-table">

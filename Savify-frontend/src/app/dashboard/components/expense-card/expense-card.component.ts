@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CurrencyPipe, NgIf, NgStyle } from '@angular/common';
+import { CurrencyPipe, NgStyle } from '@angular/common';
 import { ExpenseCard } from '../../../../../models/expense-card.model';
 import { MonthlyLimitService } from '../../../services/monthly-limit.service';
 import { ExpenseService } from '../../../services/expense.service';
@@ -7,7 +7,7 @@ import { ExpenseService } from '../../../services/expense.service';
 @Component({
   selector: 'app-expense-card',
   standalone: true,
-  imports: [NgIf, CurrencyPipe, NgStyle],
+  imports: [CurrencyPipe, NgStyle],
   templateUrl: './expense-card.component.html',
   styleUrl: './expense-card.component.css'
 })

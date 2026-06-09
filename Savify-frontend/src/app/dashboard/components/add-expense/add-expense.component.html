@@ -1,8 +1,10 @@
 <div class="add-expense-card">
-    <button class="add-btn" (click)="openModal()">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-        <p>Add new expense</p>
-    </button>
+  <button class="add-btn" (click)="openModal()">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    <p>Add new expense</p>
+  </button>
 </div>
 
-<app-add-expense-modal *ngIf="showModal" (closeModal)="closeModal()"></app-add-expense-modal>
+@if (showModal) {
+  <app-add-expense-modal (closeModal)="closeModal()"></app-add-expense-modal>
+}
