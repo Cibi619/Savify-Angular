@@ -2,40 +2,26 @@
 
 <div class="modal-box">
   <span class="close-btn" (click)="close()">&times;</span>
-  <h3>Add Expense</h3>
-  <form (ngSubmit)="submit()">
+  <ng-container *ngIf="mode === 'add'; else editForm">
+    <h3>Add Expense</h3>
+    <form (ngSubmit)="submit()">
+      <input type="text" placeholder="Expense Name" name="name" [(ngModel)]="expense.name" required />
+      <input type="number" placeholder="Amount" name="price" [(ngModel)]="expense.price" required />
+      <input type="date" name="date" [(ngModel)]="expense.date" required (change)="autoSetMonth()" />
+      <select name="category" [(ngModel)]="expense.category" required>
+        <option value="" disabled>Select Category</option>
+        <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+      </select>
+      <textarea placeholder="Note" name="note" [(ngModel)]="expense.note"></textarea>
+      <button type="submit">Save Expense</button>
+    </form>
+  </ng-container>
 
-    <input type="text"
-      placeholder="Expense Name"
-      name="name"
-      [(ngModel)]="expense.name"
-      required />
-
-      <input type="number"
-        placeholder="Amount"
-        name="price"
-        [(ngModel)]="expense.price"
-        required />
-
-        <input type="date"
-          name="date"
-          [(ngModel)]="expense.date"
-          required
-          (change)="autoSetMonth()"/>
-
-          <select name="category"
-            [(ngModel)]="expense.category"
-            required>
-            <option disabled selected>Select Category</option>
-            @for (c of categories; track c) {
-              <option>{{ c }}</option>
-            }
-          </select>
-
-          <textarea placeholder="Note"
-            name="note"
-          [(ngModel)]="expense.note"></textarea>
-
-          <button type="submit">Save Expense</button>
-        </form>
-      </div>
+  <ng-template #editForm>
+    <h3>Edit Monthly Limit</h3>
+    <form (ngSubmit)="updateLimit()">
+      <input type="number" placeholder="New Limit" name="limit" [(ngModel)]="newLimit" required />
+      <button type="submit">Update Limit</button>
+    </form>
+  </ng-template>
+</div>

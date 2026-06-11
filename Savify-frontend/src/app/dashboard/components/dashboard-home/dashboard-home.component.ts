@@ -135,6 +135,11 @@ export class DashboardHomeComponent implements OnInit {
     }
   }
 
+  onLimitUpdated(event: { category: string; limit: number }) {
+    const card = this.expenseCards.find(c => c.category === event.category);
+    if (card) card.limit = event.limit;
+  }
+
   calculateSpentAmounts() {
     if (!this.recentExpenses || this.expenseCards.length === 0) return;
 

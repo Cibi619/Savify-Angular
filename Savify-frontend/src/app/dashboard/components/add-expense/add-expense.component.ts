@@ -10,8 +10,10 @@ import { AddExpenseModalComponent } from "../add-expense-modal/add-expense-modal
 })
 export class AddExpenseComponent {
   showModal = false;
+  mode: 'add' | 'edit' = 'add';
 
-  openModal() {
+  openModal(mode: 'add' | 'edit') {
+    this.mode = mode;
     this.showModal = true;
   }
 

@@ -33,9 +33,18 @@
         </div>
       </div>
 
-      <button type="button" class="expense-card__button">
+      <button type="button" class="expense-card__button" (click)="openEditModal()">
         Edit monthly limit
       </button>
     </div>
   </div>
 </div>
+
+@if (showModal) {
+  <app-add-expense-modal
+    [mode]="mode"
+    [category]="category"
+    (closeModal)="showModal = false"
+    (limitUpdated)="onLimitUpdated($event)">
+  </app-add-expense-modal>
+}

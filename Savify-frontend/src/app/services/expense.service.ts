@@ -88,4 +88,10 @@ export class ExpenseService {
       `${this.monthlyCategoryUrl}/monthly-categories/summary?month=${month}&year=${year}`
     ).pipe(catchError(this.handleError));
   }
+
+  updateLimit(category: string, newLimit: number): Observable<any> {
+    const payload = { category, newLimit };
+    return this.http.post(`${this.monthlyCategoryUrl}/monthly-limits`, payload)
+      .pipe(catchError(this.handleError));
+  }
 }

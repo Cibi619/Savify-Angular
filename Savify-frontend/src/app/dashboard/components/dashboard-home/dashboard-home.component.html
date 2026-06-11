@@ -21,7 +21,8 @@
           <app-expense-card
             [category]="card.category"
             [limit]="card.limit"
-            [spent]="card.spent">
+            [spent]="card.spent"
+            (limitUpdated)="onLimitUpdated($event)">
           </app-expense-card>
         }
       </div>
