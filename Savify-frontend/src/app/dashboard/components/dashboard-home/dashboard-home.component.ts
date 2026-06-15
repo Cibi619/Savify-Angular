@@ -88,7 +88,7 @@ export class DashboardHomeComponent implements OnInit {
     if (summary.length === 4) {
       return summary.map(item => ({
         category: item.category,
-        limit: item.limit ?? 200,
+        limit: item.limit || 200,
         spent: item.spent ?? 0
       }));
     }
@@ -98,7 +98,7 @@ export class DashboardHomeComponent implements OnInit {
       const found = summary.find(s => s.category === category);
       return {
         category,
-        limit: found?.limit ?? 200,
+        limit: found?.limit || 200,
         spent: found?.spent ?? 0
       };
     });
@@ -116,9 +116,10 @@ export class DashboardHomeComponent implements OnInit {
     }));
 
     try {
+      const user = this.authService.getDecodedUser()?.id;
       const promises = categories.map(category =>
         this.monthlyLimitService.updateLimit({
-          user: this.userId,
+          user,
           category,
           month: this.currentMonth,
           year: this.currentYear,

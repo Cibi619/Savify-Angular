@@ -1,6 +1,8 @@
 
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ExpenseService } from '../../../services/expense.service';
+import { MonthlyLimitService } from '../../../services/monthly-limit.service';
+import { AuthService } from '../../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { ToastComponent } from '../../../shared/toast/toast.component';
 import { ToastService } from '../../../shared/toast.service';
@@ -28,7 +30,12 @@ export class AddExpenseModalComponent {
   };
   newLimit = 0;
 
-  constructor(private expenseService: ExpenseService, private toast: ToastService) {}
+  constructor(
+    private expenseService: ExpenseService,
+    private monthlyLimitService: MonthlyLimitService,
+    private authService: AuthService,
+    private toast: ToastService
+  ) {}
   close() {
       this.closeModal.emit();
     }
@@ -54,7 +61,13 @@ export class AddExpenseModalComponent {
   }
 
   updateLimit() {
-    this.expenseService.updateLimit(this.category, this.newLimit).subscribe(() => {
+    const d = new Date();
+    const month = d.toLocaleString('en-US', { month: 'long' });
+    const year = d.getFullYear();
+    const user = this.authService.getDecodedUser()?.id;
+    console.log(user, "-----user");
+
+    this.monthlyLimitService.updateLimit({ user, category: this.category, month, year, limit: this.newLimit }).subscribe(() => {
       this.toast.triggerToast('Limit Updated Successfully 🎉');
       this.limitUpdated.emit(this.newLimit);
       this.newLimit = 0;

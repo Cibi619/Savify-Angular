@@ -91,6 +91,7 @@ export class ExpenseService {
 
   updateLimit(category: string, newLimit: number): Observable<any> {
     const payload = { category, newLimit };
+    console.log(payload, "payload in service");
     return this.http.post(`${this.monthlyCategoryUrl}/monthly-limits`, payload)
       .pipe(catchError(this.handleError));
   }
